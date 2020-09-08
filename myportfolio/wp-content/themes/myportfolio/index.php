@@ -148,21 +148,29 @@
             </div>
           </div>
           <div class="info">
+
+          <?php 
+            $mypod = pods('experience');
+            $mypod->find('name ASC');
+          ?>
+
+          <?php while($mypod->fetch()) : ?>
+            <!-- setting the variables -->
+            <?php
+            $name = $mypod->field('name');
+            $content = $mypod->field('content');
+            $permalink = $mypod->field('permalink');
+            $start_end_date = $mypod->field('start_end_date');
+            $location = $mypod->field('location');
+            ?>
+
             <div class="info-box">
-              <h4>Graphic Artist - Nike</h4>
-              <span class="date">June 2012 - July 2013</span>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </p>
+              <h4><?= $name; ?> - <?= $location; ?></h4>
+              <span class="date"><?= $start_end_date; ?></span>
+              <p><?= $content; ?></p>
             </div>
-            <div class="info-box">
-              <h4>Graphic Artist - Nike</h4>
-              <span class="date">June 2012 - July 2013</span>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-            </div>
-            <div class="info-box">
-              <h4>Graphic Artist - Nike</h4>
-              <span class="date">June 2012 - July 2013</span>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-            </div>
+
+          <?php endwhile; ?>
           </div>
         </div>
       </div>
