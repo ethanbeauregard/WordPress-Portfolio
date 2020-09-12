@@ -71,7 +71,8 @@
             $type_of_project = $mypod->field('type_of_project');
             $permalink = $mypod->field('permalink');
             $loopIndex +=1;
-
+            
+            // gets featured image to be usable with pods
             $row = $mypod->row();
                 $post_id = $row['ID'];
                 if (!function_exists('get_post_featured_image')) {
