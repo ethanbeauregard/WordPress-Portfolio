@@ -58,69 +58,60 @@
           <h1>portfolio</h1>
         </div>
         <div class="portfolio-container">
-          <a href="portfoli/#" class="box image1">
-            <div class="image">
-              <div class="hover-bg">
-                <div class="title">
-                  <div class="text">Ecommerce</div>
+        <?php 
+            $mypod = pods('project');
+            $mypod->find('name ASC');
+            $loopIndex = 0;
+          ?>
+
+          <?php while($mypod->fetch()) : ?>
+            <!-- setting the variables -->
+            <?php
+            $name = $mypod->field('name');
+            $type_of_project = $mypod->field('type_of_project');
+            $permalink = $mypod->field('permalink');
+            $loopIndex +=1;
+
+            $row = $mypod->row();
+                $post_id = $row['ID'];
+                if (!function_exists('get_post_featured_image')) {
+                  function get_post_featured_image($post_id, $size) {
+                    $return_array = [];
+                    $image_id = get_post_thumbnail_id($post_id);
+                    $image = wp_get_attachment_image_src($image_id, $size);
+                    $image_url = $image[0];
+                    $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true);
+                    $image_post = get_post($image_id);
+                    $image_caption = $image_post->post_excerpt;
+                    $image_description = $image_post->post_content;
+                    $return_array['id'] = $image_id;
+                    $return_array['url'] = $image_url;
+                    $return_array['alt'] = $image_alt;
+                    $return_array['caption'] = $image_caption;
+                    $return_array['description'] = $image_description;
+                    return $return_array;
+                  }
+                }
+                $image_properties = get_post_featured_image($post_id, 'full');
+            ?>
+            <a href="<?= $permalink; ?>" class="box image<?= $loopIndex; ?>">
+              <div class="image" style='background: url("<?= $image_properties[url]; ?>");
+                height: 100%;
+                width: 100%;
+                background-size: cover;
+                background-position: center center;
+                background-repeat: no-repeat;'>
+                <div class="hover-bg">
+                  <div class="title">
+                    <div class="text"><?= $type_of_project; ?></div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-          <a href="portfoli/#" class="box image2">
-            <div class="image">
-              <div class="hover-bg">
-                <div class="title">
-                  <div class="text">Ecommerce</div>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="portfoli/#" class="box image3">
-            <div class="image">
-              <div class="hover-bg">
-                <div class="title">
-                  <div class="text">Ecommerce</div>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="portfoli/#" class="box image4">
-            <div class="image">
-              <div class="hover-bg">
-                <div class="title">
-                  <div class="text">Ecommerce</div>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="portfoli/#" class="box image5">
-            <div class="image">
-              <div class="hover-bg">
-                <div class="title">
-                  <div class="text">Ecommerce</div>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="portfoli/#" class="box image6">
-            <div class="image">
-              <div class="hover-bg">
-                <div class="title">
-                  <div class="text">Ecommerce</div>
-                </div>
-              </div>
-            </div>
-          </a>
-          <a href="portfoli/#" class="box image7">
-            <div class="image">
-              <div class="hover-bg">
-                <div class="title">
-                  <div class="text">Ecommerce</div>
-                </div>
-              </div>
-            </div>
-          </a>
+            </a>
+
+          <?php endwhile; ?>
+          
+          
         </div>
       </div>
     </section>
